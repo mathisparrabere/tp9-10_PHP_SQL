@@ -1,7 +1,22 @@
 <?php
-require("Model/pdo.php");
+require("Model/pdo.php");?>
 
-$resultat = $dbPDO->prepare("SELECT * FROM etudiants");
+<form action="Views/nouvel_etudiant.php" method="post">
+   Nouvel étudiant <br>
+   Prénom : <input type="text" name="prenom" />
+   Nom : <input type="text" name="nom" />
+
+   <input type="submit" value="Valider" />
+</form>
+
+<form action="Views/nouvelle_matiere.php" method="post">
+        
+   Nouvelle Matière : <input type="text" name="matiere" />
+
+   <input type="submit" value="Valider" />
+</form>
+
+<?php $resultat = $dbPDO->prepare("SELECT * FROM etudiants");
 $resultat ->execute();
 $etudiants= $resultat->fetchAll();
 
@@ -30,4 +45,17 @@ echo "<br><br> Les professeurs : <br><br>";
 foreach($professeurs as $professeurs) {
    echo $professeurs['nom']." ".$professeurs['prenom']."<br>";
 }
+
+$resultat = $dbPDO->prepare("SELECT * FROM matiere");
+$resultat ->execute();
+$matiere = $resultat->fetchAll();
+
+echo "<br><br> Les matiere : <br><br>";
+
+foreach($matiere as $matiere) {
+   echo $matiere['lib']."<br>";
+}
+
+$resultat = $dbPDO->prepare("INSERT INTO matiere(id, lib) VALUES (5, 'Espagnol')");
+$resultat ->execute();
 ?>
