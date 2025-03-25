@@ -16,14 +16,18 @@ require("Model/pdo.php");?>
    <input type="submit" value="Valider" />
 </form>
 
-<?php $resultat = $dbPDO->prepare("SELECT * FROM etudiants");
+<?php
+$resultat = $dbPDO->prepare("UPDATE etudiants SET prenom = 'Tisba' WHERE id = 9");
+$resultat ->execute();
+
+$resultat = $dbPDO->prepare("SELECT * FROM etudiants");
 $resultat ->execute();
 $etudiants= $resultat->fetchAll();
 
 echo "<br><br> Les étudiants : <br><br>";
 
 foreach($etudiants as $etudiants) {
-   echo $etudiants['nom']." ".$etudiants['prenom']."<br>";
+   echo $etudiants['nom'].' '.$etudiants['prenom'].'<br><a href="Views/modif_etudiant.php?nom='.$etudiants['nom'].'&prenom='.$etudiants['prenom'].'&id='.$etudiants['id'].'">Modifier</a><br>';
 }
 
 $resultat = $dbPDO->prepare("SELECT * FROM classes");
@@ -55,7 +59,4 @@ echo "<br><br> Les matiere : <br><br>";
 foreach($matiere as $matiere) {
    echo $matiere['lib']."<br>";
 }
-
-$resultat = $dbPDO->prepare("INSERT INTO matiere(id, lib) VALUES (5, 'Espagnol')");
-$resultat ->execute();
 ?>
