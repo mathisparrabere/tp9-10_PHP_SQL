@@ -17,7 +17,7 @@ require("Model/pdo.php");?>
 </form>
 
 <?php
-$resultat = $dbPDO->prepare("UPDATE etudiants SET prenom = 'Tisba' WHERE id = 9");
+$resultat = $dbPDO->prepare("DELETE FROM etudiants WHERE id = 9");
 $resultat ->execute();
 
 $resultat = $dbPDO->prepare("SELECT * FROM etudiants");
@@ -27,7 +27,7 @@ $etudiants= $resultat->fetchAll();
 echo "<br><br> Les étudiants : <br><br>";
 
 foreach($etudiants as $etudiants) {
-   echo $etudiants['nom'].' '.$etudiants['prenom'].'<br><a href="Views/modif_etudiant.php?nom='.$etudiants['nom'].'&prenom='.$etudiants['prenom'].'&id='.$etudiants['id'].'">Modifier</a><br>';
+   echo $etudiants['nom'].' '.$etudiants['prenom'].'<br><a href="Views/modif_etudiant.php?nom='.$etudiants['nom'].'&prenom='.$etudiants['prenom'].'&id='.$etudiants['id'].'">Modifier</a><br><a href="Views/suppression_etudiant.php?id='.$etudiants['id'].'">Supprimer</a><br>';
 }
 
 $resultat = $dbPDO->prepare("SELECT * FROM classes");
